@@ -27,9 +27,6 @@ export default function RootLayout({ children }) {
             <Link href="/"  style={{margin:'5px'}} >
               Home
             </Link>
-            <Link href="/contador" style={{margin:'5px'}} >
-              Contador
-            </Link>
             <Link href="/users" style={{margin:'5px'}} >
               Usuarios
             </Link>

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Button, TextField, Typography, Box, CircularProgress } from '@mui/material';
+import Link from 'next/link';
 import { buscarCarrito } from '@/services/CarritoService';
 
 function SearchCarritoPage() {
@@ -82,8 +83,22 @@ function SearchCarritoPage() {
         )}
                 </Box>
             )}
+
+            <Button
+                variant="outlined"
+                color="secondary"
+                sx={{ mt: 2 }}
+            >
+                <Link href="/carrito/crearCarrito" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    Crear Carrito
+                </Link>
+            </Button>
         </Box>
     );
+
+    
 }
+
+
 
 export default SearchCarritoPage;
