@@ -33,6 +33,10 @@ export default function RootLayout({ children }) {
             <Link href="/carrito" style={{margin:'5px'}} >
               Carrito
             </Link>
+              </Link>
+	<Link href="/ventas" style={{margin:'5px'}} >
+              Ventas
+            </Link>
           </nav>
         </header>
         <main>
