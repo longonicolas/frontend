@@ -21,8 +21,8 @@ export async function buscarVentaService(id) {
   return data;
 }
 
-export async function buscarEstadoVentaService(estado, id) {
-  let data = await fetch(`${API_URL}/ventas/${estado}/${id}`)
+export async function buscarEstadoVentaService(id) {
+  let data = await fetch(`${API_URL}/ventas/${id}/estados`)
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
