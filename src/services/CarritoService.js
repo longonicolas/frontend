@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 /**
 
@@ -30,3 +30,25 @@ export async function crearCarrito(carritoNuevoInputDTO) {
 
     return response.json();
 }
+
+export const agregarProductoAlCarrito = async (carritoId, productoData) => {
+    try {
+        const response = await fetch(`${API_URL}/carritos/${carritoId}/productos`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(productoData),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Error al agregar producto al carrito.');
+        }
+
+        return response;
+    } catch (error) {
+        console.error('Error en agregarProductoAlCarrito:', error.message);
+        throw error;
+    }
+};
