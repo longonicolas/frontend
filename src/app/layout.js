@@ -26,9 +26,6 @@ export default function RootLayout({ children }) {
         {showHeader && (
           <header className="menu-header">
             <nav>
-              <Link href="/" style={{ margin: "5px" }}>
-                Home
-              </Link>
               <Link href="/users" style={{ margin: "5px" }}>
                 Usuarios
               </Link>

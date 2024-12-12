@@ -47,7 +47,7 @@ export default function AgregarProducto({ params: { carritoId } }) {
 
             await agregarProductoAlCarrito(carritoId, productoData);
             alert('Producto agregado exitosamente.');
-            router.push(`/carrito/${carritoId}`);
+            //router.push(`/carrito/${carritoId}/agregarProducto/page.js`);
         } catch (err) {
             setError(err.message || 'Ocurrió un error inesperado.');
         }

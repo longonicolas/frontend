@@ -74,7 +74,7 @@ function SearchCarritoPage() {
             <ul>
                 {carrito.productos.map((producto, index) => (
                     <li key={index}>
-                        {producto.nombre} - {producto.cantidad} x ${producto.precio}
+                        {producto.producto.nombre} - {producto.cantidad} x ${producto.producto.precio}
                     </li>
                 ))}
             </ul>

@@ -6,7 +6,12 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
  * @returns {Promise<Object>} - Datos del carrito o lanza un error si falla.
  */
 export async function buscarCarrito(carritoId) {
-    const response = await fetch(`${API_URL}/carritos/${carritoId}`);
+    const token = localStorage.getItem("jwtToken");
+    const response = await fetch(`${API_URL}/carritos/${carritoId}`,
+        {headers: {
+            "Authorization": `Bearer ${token}`,
+          }}
+    );
     if (!response.ok) {
         throw new Error(`Error fetching carrito: ${response.status} ${response.statusText}`);
     }
@@ -15,10 +20,14 @@ export async function buscarCarrito(carritoId) {
 
 
 export async function crearCarrito(carritoNuevoInputDTO) {
+    const token = localStorage.getItem("jwtToken");
     const response = await fetch(`${API_URL}/carritos`, {
+
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`,
+              
         },
         body: JSON.stringify(carritoNuevoInputDTO),
     });
@@ -32,11 +41,13 @@ export async function crearCarrito(carritoNuevoInputDTO) {
 }
 
 export const agregarProductoAlCarrito = async (carritoId, productoData) => {
+    const token = localStorage.getItem("jwtToken");
     try {
         const response = await fetch(`${API_URL}/carritos/${carritoId}/productos`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`,
             },
             body: JSON.stringify(productoData),
         });

@@ -1,7 +1,12 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getVentasService() {
-    let data = await fetch(`${API_URL}/ventas`)
+  const token = localStorage.getItem("jwtToken");
+    let data = await fetch(`${API_URL}/ventas`,
+      {headers: {
+        "Authorization": `Bearer ${token}`
+      }}
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -12,7 +17,12 @@ export async function getVentasService() {
 
 
 export async function buscarVentaService(id) {
-  let data = await fetch(`${API_URL}/ventas/${id}`)
+  const token = localStorage.getItem("jwtToken");
+  let data = await fetch(`${API_URL}/ventas/${id}`,
+    {headers: {
+      "Authorization": `Bearer ${token}`
+    }}
+  )
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -22,7 +32,13 @@ export async function buscarVentaService(id) {
 }
 
 export async function buscarEstadoVentaService(id) {
-  let data = await fetch(`${API_URL}/ventas/${id}/estados`)
+  const token = localStorage.getItem("jwtToken");
+
+  let data = await fetch(`${API_URL}/ventas/${id}/estados`,
+    {headers: {
+      "Authorization": `Bearer ${token}`
+    }}
+  )
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
