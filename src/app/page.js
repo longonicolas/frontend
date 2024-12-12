@@ -40,20 +40,19 @@ const Login = () => {
     e.preventDefault();
     setLoginError("");
   
+    const result = await loginUserService(loginData);
     // Verificar credenciales localmente para determinar el rol
     if (loginData.username === "admin" && loginData.password === "admin") {
       router.push("/users"); // Redirigir al panel de administrador
     } else {
-      const result = await loginUserService(loginData);
-      if (result.success) {
-        router.push("/carrito"); // Redirigir a carrito
-      } else {
-        setLoginError("Credenciales incorrectas.");
-      }
+        if (result.success) {
+          router.push("/carrito"); // Redirigir a carrito
+        } else {
+          setLoginError("Credenciales incorrectas.");
+        }
     }
   };
   
-
   const handleSignupChange = (e) => {
     setSignupData({ ...signupData, [e.target.name]: e.target.value });
   };
