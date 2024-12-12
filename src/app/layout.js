@@ -1,6 +1,9 @@
+"use client";
+
 import localFont from "next/font/local";
 import "./globals.css";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -13,35 +16,32 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata = {
-  title: "Ecommerce Accenture",
-  description: "Modulo venta",
-};
-
 export default function RootLayout({ children }) {
+  const pathname = usePathname();
+  const showHeader = pathname !== "/";
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <header className="menu-header">
-          <nav>
-            <Link href="/"  style={{margin:'5px'}} >
-              Home
-            </Link>
-            <Link href="/users" style={{margin:'5px'}} >
-              Usuarios
-            </Link>
-            <Link href="/carrito" style={{margin:'5px'}} >
-              Carrito
-            </Link>
+        {showHeader && (
+          <header className="menu-header">
+            <nav>
+              <Link href="/" style={{ margin: "5px" }}>
+                Home
               </Link>
-	<Link href="/ventas" style={{margin:'5px'}} >
-              Ventas
-            </Link>
-          </nav>
-        </header>
-        <main>
-          {children}
-        </main>
+              <Link href="/users" style={{ margin: "5px" }}>
+                Usuarios
+              </Link>
+              <Link href="/carrito" style={{ margin: "5px" }}>
+                Carrito
+              </Link>
+              <Link href="/ventas" style={{ margin: "5px" }}>
+                Ventas
+              </Link>
+            </nav>
+          </header>
+        )}
+        <main>{children}</main>
       </body>
     </html>
   );
