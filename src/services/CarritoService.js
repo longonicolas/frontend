@@ -1,4 +1,5 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+//const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "http://localhost:8080";
 
 /**
 
@@ -63,3 +64,60 @@ export const agregarProductoAlCarrito = async (carritoId, productoData) => {
         throw error;
     }
 };
+
+export const finalizarCompra = async (carritoId, medioDePago) => {
+    const token = localStorage.getItem("jwtToken");
+    try {
+        const response = await fetch(`${API_URL}/carritos/${carritoId}/finalizacion`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify({ medioDePago }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Error al finalizar compra.');
+        }
+
+        return response;
+    } catch (error) {
+        console.error('Error en finalizarCompra:', error.message);
+        throw error;
+    }
+}
+
+
+
+export const modificarCantidad = async (carritoId, carritoProductoId, cantidad) => {
+    const token = localStorage.getItem("jwtToken"); // Asegúrate de que el token esté disponible en localStorage
+    if (!token) {
+        throw new Error("Token no disponible. Por favor, inicia sesión.");
+    }
+
+    try {
+        const response = await fetch(`${API_URL}/carritos/${carritoId}/productos`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`,
+            },
+            body: JSON.stringify({ itemId: carritoProductoId, nuevaCantidad: cantidad }) // Revisa que los nombres coincidan con lo que espera el backend
+        });
+
+        if (!response.ok) {
+            // Si la respuesta no es correcta, lanzamos un error
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Error al modificar cantidad del producto.');
+        }
+
+        // Si la respuesta es exitosa, retorna la respuesta
+        return response.json(); // Retornar la respuesta como JSON si es necesario
+    } catch (error) {
+        console.error('Error en modificarCantidad:', error.message);
+        throw error; // Lanzamos el error para que pueda ser capturado donde se llama a esta función
+    }
+};
+//export const eliminarProductoDelCarrito = async (carritoId, productoId) => {
