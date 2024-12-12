@@ -19,8 +19,10 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { buscarCarrito, crearCarrito, agregarProductoAlCarrito, finalizarCompra, modificarCantidad } from '@/services/CarritoService';
+import { useRouter } from 'next/navigation'; 
 
 function SearchCarritoPage() {
+    const router = useRouter();
     const [carritoId, setCarritoId] = useState('');
     const [carrito, setCarrito] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -41,7 +43,7 @@ function SearchCarritoPage() {
     const fetchCarrito = async (carritoId) => {
         try {
             setLoading(true);
-            const data = await buscarCarrito(carritoId);  // Suponiendo que `buscarCarrito` devuelve la respuesta correctamente
+            const data = await buscarCarrito(carritoId);  
             setCarrito(data);
             setError('');
         } catch (err) {
@@ -51,11 +53,11 @@ function SearchCarritoPage() {
         }
     };
 
-    useEffect(() => {
+    /*useEffect(() => {
         if (carritoId) {
             fetchCarrito(carritoId);
         }
-    }, [carritoId]);
+    }, [carritoId]);*/
 
     const handleSearch = () => {
         setError('');
@@ -87,13 +89,14 @@ function SearchCarritoPage() {
 
         try {
             const carritoNuevoInputDTO = {
-                clienteId: parseInt(clienteId, 10), // Asegúrate de que sea un número
+                clienteId: parseInt(clienteId, 10),
                 nombre: clienteNombre,
             };
 
             const data = await crearCarrito(carritoNuevoInputDTO);
-            setCarrito(data); // Guardamos el carrito creado
-
+            setCarrito(data); 
+            setCarritoId(data.id);
+            setDialogCrearCarrito(false);
         } catch (err) {
             alert('Error al crear carrito: ' + err.message);
         }
@@ -107,6 +110,7 @@ function SearchCarritoPage() {
             alert('Compra finalizada exitosamente.');
             setDialogFinalizarCompra(false);
             setMedioDePago('');
+            router.refresh();
         } catch (err) {
             alert('Error al finalizar la compra: ' + err.message);
         }

@@ -23,7 +23,6 @@ function PageUsers() {
     }
 
     useEffect(() => {
-        console.log('Usuario desde page')
         console.log(editedUser)
     }, [editedUser])
 
@@ -36,11 +35,10 @@ function PageUsers() {
         <div style={{
             display: 'flex',
             flexDirection:'column',
-            alignItems: 'center',
-
+            alignItems: 'center'
         }}>
-            <h1>Tabla usuarios</h1>
-            <Button variant="contained" onClick={() => setDialogOpen(true)}>Crear usuario</Button>
+            <h1>Usuarios</h1>
+            {/*<Button variant="contained" onClick={() => setDialogOpen(true)}>Crear usuario</Button>*/}
             <UsersTable handleEdit={handleEdit} data={rows} ></UsersTable>
 
             {editedUser && <UserCard user={editedUser} onUserUpdate={getUsers} />}

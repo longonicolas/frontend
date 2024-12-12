@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import { Button, TextField, Typography, Box, CircularProgress } from '@mui/material';
-import { crearCarrito } from '@/services/CarritoService'; // Función para el POST
-import { useRouter } from 'next/navigation'; // Importa useRouter para redirección
+import { crearCarrito } from '@/services/CarritoService'; 
+import { useRouter } from 'next/navigation'; 
 
 function CrearCarritoPage() {
     const [clienteId, setClienteId] = useState('');
@@ -12,7 +12,7 @@ function CrearCarritoPage() {
     const [error, setError] = useState('');
     const [carrito, setCarrito] = useState(null);
 
-    const router = useRouter(); // Instancia de useRouter
+    const router = useRouter(); 
 
     const handleCreate = async () => {
         setLoading(true);
@@ -21,7 +21,7 @@ function CrearCarritoPage() {
 
         try {
             const carritoNuevoInputDTO = {
-                clienteId: parseInt(clienteId, 10), // Asegúrate de que sea un número
+                clienteId: parseInt(clienteId, 10),
                 nombre,
             };
 
@@ -29,7 +29,7 @@ function CrearCarritoPage() {
             setCarrito(data); // Guardamos el carrito creado
 
             // Redirige automáticamente a la página de agregar productos
-            router.push(`/carrito/${data.id}/agregarProducto`);
+            //router.push(`/carrito/${data.id}/agregarProducto`);
         } catch (err) {
             setError(err.response?.data?.message || 'Ocurrió un error');
         } finally {
